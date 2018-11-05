@@ -13,22 +13,22 @@
 
 <body>
     <section class="container" ng-controller="TodoController as $ctrl">
-        <form ng-submit="$ctrl.addTask($ctrl.task)">
+        <form>
             <h3>TODO List</h3>
             <p>A place to store the things you have to do!</p>
             <section class="input">
-                <input type="text" placeholder="Filter your to do">
+                <input ng-model="$ctrl.filterList" type="text" placeholder="Filter your to do">
             </section>
             <ol>
-                <section ng-repeat="task in $ctrl.tasks track by $index" class="list-item">
-                    <li ng-class="{'complete': task.completed === true}"><button ng-if="!task.completed" class="check">Complete</button>
+                <section ng-repeat="task in $ctrl.tasks | filter: $ctrl.filterList track by $index" class="list-item">
+                    <li ng-class="{'complete': task.completed === true}"><button ng-click="$ctrl.completeTask(task)" ng-if="!task.completed" class="check">Complete</button>
                         {{task.name}}</li>
-                    <i class="fas fa-times"></i>
+                    <i ng-click="$ctrl.removeTask(task)" class="fas fa-times"></i>
                 </section>
             </ol>
             <section class="inputbtn">
-                <input type="text" ng-model="$ctrl.task" placeholder="Add your to do">
-                <button class="add">Add</button>
+                <input type="text" ng-model="$ctrl.task.name" placeholder="Add your to do">
+                <button ng-click="$ctrl.addTask($ctrl.task)" class="add">Add</button>
             </section>
         </form>
 

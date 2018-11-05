@@ -10,6 +10,15 @@ function TodoController() {
     ];
     vm.addTask = (newTask) => {
         vm.tasks.push(angular.copy(newTask));
+        vm.task.name = ``;
+    }
+
+    vm.removeTask = (task) => {
+        vm.tasks.splice(vm.tasks.indexOf(task), 1);
+    }
+
+    vm.completeTask = (task) => {
+        task.completed = true;
     }
 }
 
